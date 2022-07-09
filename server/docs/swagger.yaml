@@ -1,0 +1,202 @@
+swagger: "2.0"
+info:
+  title: "Chapter 8 - Challenge"
+  version: "1.0.0"
+  description: "Ini sebuah aplikasi"
+  
+basePath: "/api/v1"
+  
+tags:
+- name: "Players"
+  description: "Player resources"
+
+paths:
+  /players:
+    get:
+      tags:
+      - "Players"
+      summary: "List all available players"
+      description: "Description for list players"
+      operationId: "getPlayers"
+      produces:
+      - "application/json"
+      responses: 
+        "200":
+          description: "Success"
+          schema: 
+            type: "array"
+            items:
+              $ref: "#/definitions/Player"
+    
+    post: 
+      tags:
+      - "Players"
+      summary: "Add new player"
+      description: "Create new"
+      operationId: "addPlayer"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Player object"
+        required: true
+        schema: 
+          type: "object"
+          properties: 
+            username:
+              type: "string"
+              example: "PussySlayer613"
+            email:
+              type: "string"
+              example: "pussy.slay3r@gmail.com"
+            password:
+              type: "string"
+              example: "password"
+      produces: 
+      - "application/json"
+      responses:
+        "201":
+          description: "Succesfully create new player"
+          schema:
+            $ref: "#/definitions/Player"
+        "400":
+          description: "Bad Request"
+                
+  /players/{id}:
+    get:
+      tags:
+      - "Players"
+      summary: "Find players by ID"
+      description: "Returns a single Player"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "ID of player to return"
+        required: true
+        type: "integer"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Player"
+        "404":
+          description: "Player not found"
+        "500":
+          description: "Internal Server Error"
+    
+    put:
+      tags:
+      - "Players"
+      summary: "Update Player"
+      description: "Edit Player"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Player object"
+        required: true
+        schema: 
+          type: "object"
+          properties: 
+            id:
+              type: "integer"
+              example: "1"
+            username:
+              type: "string"
+              example: "PussySlayer613"
+      - in: "path"
+        name: "id"
+        description: "ID of Player to return"
+        required: true
+        type: "integer"
+      produces: 
+      - "application/json"
+      responses:
+        "200":
+          description: "Succesfully update player"
+          schema:
+            type: "object"
+            properties: 
+              id:
+                type: "integer"
+                example: "1"
+              username:
+                type: "string"
+                example: "PussySlayer613"
+        "404":
+          description: "Player not found"
+        "500":
+          description: "Internal Server Error"
+          
+    delete:
+      tags:
+      - "Players"
+      summary: "Delete Player"
+      description: "Delete Player"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Player object"
+        required: true
+        schema: 
+          type: "object"
+          properties: 
+            id:
+              type: "integer"
+              example: "1"
+            username:
+              type: "string"
+              example: "PussySlayer613"
+      - in: "path"
+        name: "id"
+        description: "ID of player to return"
+        required: true
+        type: "integer"
+      produces: 
+      - "application/json"
+      responses:
+        "200":
+          description: "Succesfully delete a player"
+          schema:
+            type: "object"
+            properties: 
+              result:
+                type: "string"
+                example: "Success"
+              message:
+                type: "string"
+                example: "Player with id: 2, was deleted successfully"
+        "400":
+          description: "Player not found"
+      
+    
+definitions: 
+  Player:
+    type: "object"
+    properties:
+      id: 
+        type: "integer"
+        example: 1
+      username:
+        type: "string"
+        example: "PussySlayer613"
+      email: 
+        type: "string"
+        example: "pussy.slay3r@gmail.com"
+      password:
+        type: "string"
+        example: "password"
+      experience: 
+        type: "integer"
+        example: 600000
+      lvl:
+        type: "integer"
+        example: 600
+      createdAt:
+        type: "string"
+        example: "2022-07-08"
+      updatedAt:
+        type: "string"
+        example: "2022-07-08"
